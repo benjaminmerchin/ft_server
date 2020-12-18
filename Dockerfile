@@ -4,18 +4,31 @@ MAINTAINER bmerchin
 
 RUN apt-get update && apt-get install -y \
 	wget \
-	nginx
+	nginx \
+	openssl \
+	mariadb-server \
+	mariadb-client
 
-#Rajouter openssl mariadb-server
-
-#COPY srcs/. .
+RUN apt-get install -y \
+	php7.3 \
+	php-mysql \
+	php7.3-fpm \
+	php-curl \
+	php-gd \
+	php-intl \
+	php-mbstring \
+	php-soap \
+	php-xml \
+	php-xmlrpc \
+	php-zip 
 
 #COPY srcs/start.sh .
-#COPY srcs/ngnix-config .
+COPY srcs/ .
 #COPY srcs/wp-config.php .
 #COPY srcs/phpmyadmin-config.inc.php .
 
-CMD echo "Hello\nfrom\nthe\nother\nside" && bash
+CMD bash start.sh && echo "Hello\nfrom\nthe\nother\nside" && bash
+
 
 #CMD bash start.sh
 #CMD ["mkdir", "wordpress"]
