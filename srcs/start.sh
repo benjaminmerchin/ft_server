@@ -1,21 +1,19 @@
-#Run nginx
-service nginx start
-
-#Run Mysql
 service mysql start
-
-#Run php
-service php7.3-fpm start
+mv ngnix.conf etc/nginx/sites-available/default
 
 #Install Wordpress
 wget http://wordpress.org/latest.tar.gz
 tar xfvz latest.tar.gz && rm latest.tar.gz
 mkdir -p /var/www/html/localhost
-mv -r wordpress/* /var/www/html/localhost && rmdir wordpress
+mv wordpress/* /var/www/html/localhost
+rmdir wordpress
+mv wp-config.php var/www/html/localhost/
 
 #Create Database in Wordpress
-echo "create database wordpress;" | mysql
-echo "create user 'wordpress'@'localhost';" | mysql
+echo "CREATE DATABASE wordpress;" | mysql -u root --skip-password
+echo "GRANT ALL ON wordpress.* TO 'root'@'localhost' WITH GRANT OPTION;" | mysql -u root --skip-password
+echo "UPDATE mysql.user set plugin='mysql_native_password' WHERE user='root';" | mysql -u root --skip-password
+echo "FLUSH PRIVILEGES;" | mysql -u root --skip-password
 
 #Install PhpMyAdmin
 cd /var/www/html/
@@ -23,5 +21,13 @@ wget https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-english.tar.
 tar -xf phpMyAdmin-5.0.1-english.tar.gz && rm -rf phpMyAdmin-5.0.1-english.tar.gz
 mv phpMyAdmin-5.0.1-english phpmyadmin
 cd phpmyadmin
-mv ../../../../phpmyadmin-config.inc.php .
+mv ../../../../phpmyadmin-config.inc.php . && cd && cd ..
 
+#SSL
+mkdir /etc/nginx/ssl
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/localhost.key -out /etc/nginx/ssl/localhost.pem -subj "/C=FR/ST=Paris/L=Paris/O=42Paris/OU=benjamin/CN=localhost"
+
+#Run php
+service nginx start
+service mysql restart
+service php7.3-fpm start

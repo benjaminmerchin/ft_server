@@ -11,29 +11,17 @@ RUN apt-get update && apt-get install -y \
 
 RUN apt-get install -y \
 	php7.3 \
-	php-mysql \
+	php7.3-mysql \
 	php7.3-fpm \
-	php-curl \
-	php-gd \
-	php-intl \
-	php-mbstring \
-	php-soap \
-	php-xml \
-	php-xmlrpc \
-	php-zip 
+	php7.3-curl \
+	php7.3-gd \
+	php7.3-intl \
+	php7.3-mbstring \
+	php7.3-soap \
+	php7.3-xml \
+	php7.3-xmlrpc \
+	php7.3-zip 
 
-#COPY srcs/start.sh .
 COPY srcs/ .
-#COPY srcs/wp-config.php .
-#COPY srcs/phpmyadmin-config.inc.php .
 
-CMD bash start.sh && echo "Hello\nfrom\nthe\nother\nside" && bash
-
-
-#CMD bash start.sh
-#CMD ["mkdir", "wordpress"]
-#CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
-#CMD ["cd", "wordpress"]
-
-
-
+CMD bash start.sh && echo "\033[44;1m\n\t\t\tHello\n\t\t\t\tfrom\n\t\t\t\t\tthe\n\t\t\t\t\t\tother\n\t\t\t\t\t\t\tside\033[0m" && bash
