@@ -25,3 +25,7 @@ RUN apt-get install -y \
 COPY srcs/ .
 
 CMD bash start.sh && echo "\033[44;1m\n\t\t\tHello\n\t\t\t\tfrom\n\t\t\t\t\tthe\n\t\t\t\t\t\tother\n\t\t\t\t\t\t\tside\033[0m" && bash
+
+#docker rmi premier_test
+#docker build -t premier_test .
+#docker run --rm --name premier_test_conteneur -it -p 8080:80 -p 443:443 premier_test
