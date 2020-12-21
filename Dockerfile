@@ -31,4 +31,7 @@ CMD bash start.sh && echo "\033[44;1m\n\t\t\tHello\n\t\t\t\tfrom\n\t\t\t\t\tthe\
 
 #docker rmi my_image
 #docker build -t my_image .
+
+#By default autoindex is on
 #docker run --rm --name my_container -it -p 8080:80 -p 443:443 my_image
+#docker run --rm --name my_container -it -e auto_index=off p 8080:80 -p 443:443 my_image
