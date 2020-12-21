@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y \
 	nginx \
 	openssl \
 	mariadb-server \
-	mariadb-client
+	mariadb-client \
+	gettext-base
 
 RUN apt-get install -y \
 	php7.3 \
@@ -22,10 +23,12 @@ RUN apt-get install -y \
 	php7.3-xmlrpc \
 	php7.3-zip 
 
+ENV auto_index=on
+
 COPY srcs/ .
 
 CMD bash start.sh && echo "\033[44;1m\n\t\t\tHello\n\t\t\t\tfrom\n\t\t\t\t\tthe\n\t\t\t\t\t\tother\n\t\t\t\t\t\t\tside\033[0m" && bash
 
-#docker rmi premier_test
-#docker build -t premier_test .
-#docker run --rm --name premier_test_conteneur -it -p 8080:80 -p 443:443 premier_test
+#docker rmi my_image
+#docker build -t my_image .
+#docker run --rm --name my_container -it -p 8080:80 -p 443:443 my_image

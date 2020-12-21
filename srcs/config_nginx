@@ -21,7 +21,7 @@
 server {
 	listen 80;
 	listen [::]:80;
-	server_name localhost www.localhost;
+	server_name bmerchin;
 	return 301 https://$host$request_uri;
 }
 
@@ -42,11 +42,11 @@ server {
 	#
 	# include snippets/snakeoil.conf;
 	
-	server_name localhost www.localhost;
+	server_name bmerchin;
 	ssl_certificate /etc/nginx/ssl/localhost.pem;
 	ssl_certificate_key /etc/nginx/ssl/localhost.key;
 
-	root /var/www/html/localhost;
+	root /var/www/bmerchin;
 
 	# Add index.php to the list if you are using PHP
 	index index.html index.htm index.php index.nginx-debian.html;
@@ -54,7 +54,7 @@ server {
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
-		autoindex on;
+		autoindex ${auto_index};
 		try_files $uri $uri/ =404;
 	}
 
